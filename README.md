@@ -3,287 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Troisièmes Easter Revisions - Emergence Secondary</title>
+    <title>Emergence Secondary - Student Portal</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; padding: 20px; color: #1e293b; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 10px solid #7c3aed; }
-        .header-branding { text-align: center; margin-bottom: 25px; }
-        .school-logo { width: 100px; height: auto; border-radius: 50%; margin-bottom: 10px; }
-        .school-title { font-size: 24px; color: #4c1d95; margin: 0; font-weight: 800; }
-        .location { margin: 5px 0; color: #64748b; font-size: 14px; }
-        h1.main-title { color: #0f172a; text-align: center; font-size: 26px; margin-top: 20px; }
-        .module-btn { background: #fff; color: #334155; border: 2px solid #e2e8f0; padding: 20px; margin: 10px 0; width: 100%; border-radius: 12px; cursor: pointer; font-size: 16px; transition: 0.2s; text-align: left; display: flex; justify-content: space-between; align-items: center; }
-        .module-btn:hover:not(:disabled) { border-color: #7c3aed; background: #f5f3ff; }
-        .module-btn.passed { background: #f0fdf4; border-color: #22c55e; color: #166534; }
-        .options button { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; cursor: pointer; text-align: left; font-size: 16px; }
-        .options button:hover { background: #f5f3ff; border-color: #7c3aed; }
-        .hint-box { display: none; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 15px; border-radius: 10px; margin: 15px 0; font-size: 14px; }
-        .grade-badge { font-size: 60px; font-weight: 900; margin: 20px 0; color: #7c3aed; }
-        .btn-nav { padding: 12px 20px; border-radius: 8px; cursor: pointer; border: none; font-weight: 600; }
-        .btn-home { background: #64748b; color: white; }
-        .btn-hint { background: #f59e0b; color: white; flex-grow: 1; margin-left: 10px; }
-        .btn-reset { background: #ef4444; color: white; width: 100%; margin-top: 30px; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f2f5; color: #1e293b; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .school-header { text-align: center; border-bottom: 3px solid #7c3aed; padding-bottom: 20px; margin-bottom: 25px; }
+        .school-name { font-size: 28px; color: #4c1d95; font-weight: 800; margin: 0; text-transform: uppercase; }
+        .info-bar { display: flex; justify-content: space-around; background: #f8fafc; padding: 10px; border-radius: 10px; margin-top: 10px; font-weight: 600; font-size: 14px; }
+        .section-header { background: #7c3aed; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; display: inline-block; margin-bottom: 10px; }
+        .module-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .module-card { border: 2px solid #e2e8f0; border-radius: 15px; padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; background: white; }
+        .unlocked { border-color: #7c3aed; cursor: pointer; }
+        .locked { opacity: 0.5; cursor: not-allowed; background: #f1f5f9; }
+        .passed { background: #f0fdf4; border-color: #22c55e; }
+        .answer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .ans-btn { padding: 18px; border: 2px solid #cbd5e1; border-radius: 12px; background: white; cursor: pointer; font-size: 16px; transition: 0.2s; text-align: center; font-weight: 500; }
+        .ans-btn:hover { border-color: #7c3aed; background: #f5f3ff; }
+        .ans-selected { background: #7c3aed !important; color: white !important; border-color: #4c1d95 !important; }
+        .btn { padding: 12px 25px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+        .btn-next { background: #7c3aed; color: white; }
+        .btn-back { background: #94a3b8; color: white; }
+        textarea { width: 100%; height: 200px; border-radius: 10px; border: 2px solid #cbd5e1; padding: 15px; font-size: 16px; margin-top: 15px; resize: none; box-sizing: border-box; line-height: 1.5; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="menu">
-        <div class="header-branding">
-            <img src="logo.jpg" alt="Logo" class="school-logo">
-            <h2 class="school-title">Emergence Secondary School</h2>
-            <p class="location">Logbessou Douala</p>
-        </div>
-        <h1 class="main-title">Level: Troisième</h1>
-        <p style="text-align: center; font-weight: bold;">Easter Break Intensive Revision</p>
-        <div id="module-list"></div>
-        <button class="btn-nav btn-reset" onclick="resetProgress()">Reset Progress</button>
-    </div>
-
-    <div id="quiz-area" style="display:none">
-        <h2 id="module-title" style="color:#7c3aed;"></h2>
-        <div id="question-container"></div>
-        <div id="hint-display" class="hint-box"></div>
-        <div style="display: flex; margin-top: 20px;">
-            <button class="btn-nav btn-home" onclick="showMenu()">Menu</button>
-            <button class="btn-nav btn-hint" onclick="toggleHint()">Hint 💡</button>
+    <div id="header-area" style="display:none">
+        <div class="school-header">
+            <h1 class="school-name">Emergence Secondary School</h1>
+            <div class="info-bar">
+                <span>Subject: English Language</span>
+                <span>Tutor: Mr. Cedric Elie Toubi</span>
+                <span>Student: <span id="student-identity" style="color:#7c3aed; font-weight:bold;"></span></span>
+            </div>
         </div>
     </div>
 
-    <div id="result-area" style="display:none; text-align: center;">
-        <h2 id="result-status"></h2>
-        <div id="grade-container" class="grade-badge"></div>
-        <p id="score-text"></p>
-        <button id="action-btn" class="btn-nav" style="width: 100%; padding: 20px; font-size: 18px; color: white;"></button>
+    <div id="screen-login" style="text-align: center; padding: 50px 0;">
+        <h2 style="color:#4c1d95">Troisième Assessment Portal</h2>
+        <input type="text" id="name-input" placeholder="Enter Full Name..." style="width:80%; padding:15px; border-radius:10px; border:2px solid #cbd5e1; font-size:18px;">
+        <br><br>
+        <button class="btn btn-next" style="width: 80%; padding: 20px;" onclick="login()">Begin Evaluation</button>
+    </div>
+
+    <div id="screen-dashboard" style="display:none">
+        <h3>Evaluation Modules</h3>
+        <p>You must answer all 40 questions correctly to unlock the Module Conclusion writing task.</p>
+        <div id="module-list" class="module-grid"></div>
+    </div>
+
+    <div id="screen-quiz" style="display:none">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <div id="section-tag" class="section-header"></div>
+                <h3 id="mod-title" style="color:#7c3aed; margin:0;"></h3>
+            </div>
+            <span id="q-counter" style="font-weight:bold; color:#64748b"></span>
+        </div>
+        <div id="quiz-body">
+            <h2 id="question-text" style="margin: 20px 0; min-height: 60px;"></h2>
+            <div id="answer-container" class="answer-grid"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:30px;">
+            <button class="btn btn-back" id="back-btn" onclick="nav(-1)">Back</button>
+            <button class="btn btn-next" id="next-btn" onclick="nav(1)">Next</button>
+        </div>
+    </div>
+
+    <div id="screen-writing" style="display:none">
+        <h2 style="color:#7c3aed">Module Conclusion: Writing Task</h2>
+        <div style="background:#fffbeb; padding:20px; border-left:5px solid #f59e0b; border-radius:5px;">
+            <p id="writing-prompt" style="font-weight:600; margin:0; line-height: 1.4;"></p>
+        </div>
+        <textarea id="writing-input" placeholder="Write your paragraph here..."></textarea>
+        <button class="btn btn-next" style="width:100%; margin-top:20px; padding:20px;" onclick="finishModule()">Submit and Unlock Next Module</button>
+    </div>
+
+    <div id="screen-result" style="display:none; text-align:center;">
+        <h1 id="score-text" style="font-size:72px; margin:0; color:#7c3aed;"></h1>
+        <p id="result-msg" style="font-size:18px; color:#64748b;"></p>
+        <button class="btn btn-next" id="result-action" style="width:100%; margin-top:20px; padding:20px;"></button>
     </div>
 </div>
 
 <script>
-    const allModules = [
-        { 
-            title: "Module 1: National Integration & Diversity", 
-            questions: Array.from({length: 40}, (_, i) => ({
-                q: [
-                    "We must accept peers from other __.", "Cameroon is a country of cultural __.", "Which word is an ellipsis for 'I went to the market and he went too'?", "I socialize with neighbors of other __.", "We should __ people from different tribes.",
-                    "Neither my brother __ my sister likes okra.", "I have __ been to Foumban.", "Although it was raining, __ went to the feast.", "Christmas is a __ celebration.", "You can either stay __ go.",
-                    "National __ promotes peace.", "Tribalism is the opposite of __.", "We celebrate New __ Day on January 1st.", "Unity in __ is Cameroon's strength.", "The Bamileke and Bakweri are __ in Cameroon.",
-                    "I __ also a member of the choir.", "She has __ seen a traditional dance.", "Respecting others __ a duty.", "Living together __ harmony is vital.", "He didn't come, and __ did she.",
-                    "We use __ to avoid repeating words.", "I like your culture, and you like __.", "Peace is __ than war.", "We are all __ citizens.", "Tolerance means __ others.",
-                    "___ you ever visited the North?", "They are __ Cameroonians.", "A __ is a group with shared culture.", "Inter-tribal __ promotes unity.", "Language __ diversity.",
-                    "Don't __ people based on religion.", "We share the __ national anthem.", "Unity makes us __.", "Diversity is a __.", "I enjoy __ food.",
-                    "___ nor his friend arrived.", "I also like __ music.", "Wait __ I finish my speech.", "She is only __ child.", "Unity is __."
-                ][i % 40],
-                options: [
-                    ["tribes", "tribalism", "tributes"], ["diversity", "unity", "division"], ["too", "went", "market"], ["religions", "regions", "tribes"], ["tolerate", "ignore", "fight"],
-                    ["nor", "or", "and"], ["never", "ever", "always"], ["he", "she", "we"], ["cross-national", "local", "personal"], ["or", "nor", "and"],
-                    ["integration", "separation", "isolation"], ["integration", "unity", "peace"], ["Year", "Month", "Week"], ["diversity", "unity", "money"], ["tribes", "religions", "countries"],
-                    ["am", "is", "are"], ["never", "always", "just"], ["is", "are", "am"], ["in", "on", "at"], ["neither", "either", "so"],
-                    ["ellipsis", "nouns", "verbs"], ["mine", "my", "me"], ["better", "good", "best"], ["equal", "different", "rich"], ["accepting", "hating", "avoiding"],
-                    ["Have", "Has", "Do"], ["proudly", "proud", "pride"], ["tribe", "house", "shop"], ["marriage", "fighting", "games"], ["is", "are", "am"],
-                    ["judge", "love", "help"], ["same", "different", "old"], ["stronger", "weaker", "bigger"], ["blessing", "curse", "problem"], ["traditional", "fast", "bad"],
-                    ["Neither", "Either", "Both"], ["modern", "noise", "old"], ["while", "during", "for"], ["one", "a", "the"], ["strength", "weak", "power"]
-                ][i % 40],
-                answer: [
-                    "tribes", "diversity", "too", "religions", "tolerate", "nor", "never", "he", "cross-national", "or", "integration", "integration", "Year", "diversity", "tribes", "am", "never", "is", "in", "neither", "ellipsis", "mine", "better", "equal", "accepting", "Have", "proudly", "tribe", "marriage", "is", "judge", "same", "stronger", "blessing", "traditional", "Neither", "modern", "while", "one", "strength"
-                ][i % 40],
-                hint: "Focus: Ellipsis, adjuncts (neither/nor), and national integration vocabulary."
-            }))
-        },
-        { 
-            title: "Module 2: Consumer Rights & Responsibility", 
-            questions: Array.from({length: 40}, (_, i) => ({
-                q: [
-                    "A consumer has the right to __.", "Check the __ date before buying.", "Don't buy __ products.", "The __ protects consumers.", "I prefer __ to locally made ones.",
-                    "If I __ enough money, I would buy it.", "If you eat bad food, you __ sick.", "I __ have bought that if I knew.", "Prices are __ today than yesterday.", "This is the __ shop in town.",
-                    "A __ is a document showing payment.", "Always ask for a __.", "Consumer __ is important.", "The shopkeeper was __ (polite).", "I __ (to buy) this last week.",
-                    "If the price __ lower, I will buy it.", "Expired food is __.", "Advertising __ our choices.", "Comparison __ helps save money.", "Quality is __ than quantity.",
-                    "The __ was very expensive.", "I am __ about the service.", "They __ (to sell) fresh bread.", "How __ does this cost?", "I have __ money left.",
-                    "A __ is a person who buys things.", "Don't __ your money.", "Save money __ the bank.", "___ products are often cheaper.", "Check the __ on the can.",
-                    "If she __ here, she would help.", "I wish I __ more money.", "The __ is always right.", "Prices __ gone up.", "I __ (not like) bad service.",
-                    "This milk is __.", "Where is the __?", "Can I have a __?", "It is __ to buy healthily.", "I __ (to pay) by cash."
-                ][i % 40],
-                options: [
-                    ["safety", "theft", "danger"], ["expiry", "entry", "birth"], ["expired", "fresh", "new"], ["law", "police", "thief"], ["imported", "export", "local"],
-                    ["had", "have", "has"], ["will get", "got", "gets"], ["would", "will", "should"], ["higher", "high", "highest"], ["best", "better", "good"],
-                    ["receipt", "book", "paper"], ["discount", "theft", "fine"], ["rights", "wrongs", "fights"], ["impolite", "polite", "kind"], ["bought", "buy", "buys"],
-                    ["is", "was", "were"], ["dangerous", "good", "sweet"], ["influences", "stops", "hates"], ["shopping", "running", "eating"], ["better", "worse", "same"],
-                    ["item", "person", "place"], ["complaining", "happy", "excited"], ["sell", "sells", "sold"], ["much", "many", "old"], ["no", "any", "some"],
-                    ["consumer", "seller", "driver"], ["waste", "save", "keep"], ["at", "in", "on"], ["Local", "Global", "Far"], ["label", "color", "size"],
-                    ["were", "is", "was"], ["had", "have", "has"], ["customer", "boss", "boy"], ["have", "has", "are"], ["don't", "doesn't", "didn't"],
-                    ["sour", "sweet", "good"], ["market", "school", "office"], ["refund", "fine", "bill"], ["wise", "bad", "stupid"], ["paid", "pay", "pays"]
-                ][i % 40],
-                answer: [
-                    "safety", "expiry", "expired", "law", "imported", "had", "will get", "would", "higher", "best", "receipt", "discount", "rights", "impolite", "bought", "is", "dangerous", "influences", "shopping", "better", "item", "complaining", "sell", "much", "no", "consumer", "waste", "at", "Local", "label", "were", "had", "customer", "have", "don't", "sour", "market", "refund", "wise", "paid"
-                ][i % 40],
-                hint: "Focus: Conditionals (Type 1 & 2), comparatives, and consumer vocabulary."
-            }))
-        },
-        { 
-            title: "Module 3: Environment & Hygiene", 
-            questions: Array.from({length: 40}, (_, i) => ({
-                q: [
-                    "We must __ the environment.", "Stop __ trees.", "The Earth is getting __.", "Plastic is __ for the soil.", "Recycle your __.",
-                    "If we __ trees, we save the air.", "Water __ causes diseases.", "Global __ is a threat.", "I __ (not throw) litter.", "She __ (to clean) the yard.",
-                    "Hygiene prevents __.", "Keep the surroundings __.", "___ is the study of environment.", "Air __ comes from smoke.", "Protect the __ species.",
-                    "If people __ trash, the city stays clean.", "We __ (past) the school garden.", "Planting trees is __.", "Use a __ to clean.", "Don't __ water.",
-                    "Environmental __ is necessary.", "The __ is very hot.", "Wash your hands __.", "Clean water is __.", "Diseases __ spread by flies.",
-                    "I __ (to see) a clean park.", "The forest is __.", "We need __ energy.", "Solar power is __.", "Animals need a __.",
-                    "If it __, the plants grow.", "Save the __.", "___ is better than cure.", "Use __ bags.", "The __ is melting.",
-                    "Trash should go in the __.", "Nature is __.", "Respect the __.", "I am __ about nature.", "Earth is our __."
-                ][i % 40],
-                options: [
-                    ["protect", "destroy", "burn"], ["cutting", "planting", "watering"], ["warmer", "colder", "smaller"], ["bad", "good", "useful"], ["waste", "food", "money"],
-                    ["plant", "cut", "burn"], ["pollution", "cleaning", "drinking"], ["warming", "cooling", "staying"], ["don't throw", "throw", "throws"], ["cleaned", "clean", "cleans"],
-                    ["illness", "health", "growth"], ["clean", "dirty", "wet"], ["Ecology", "Math", "History"], ["pollution", "purity", "smell"], ["endangered", "safe", "new"],
-                    ["don't throw", "throw", "throws"], ["planted", "plant", "plants"], ["beneficial", "bad", "hard"], ["broom", "pen", "spoon"], ["waste", "save", "keep"],
-                    ["protection", "destruction", "waste"], ["climate", "weather", "day"], ["regularly", "never", "rarely"], ["safe", "dangerous", "bad"], ["are", "is", "am"],
-                    ["saw", "see", "seen"], ["beautiful", "ugly", "small"], ["green", "black", "old"], ["clean", "dirty", "loud"], ["habitat", "house", "cage"],
-                    ["rains", "rain", "raining"], ["planet", "star", "moon"], ["Prevention", "Fighting", "Running"], ["reusable", "plastic", "paper"], ["ice", "water", "fire"],
-                    ["bin", "floor", "street"], ["fragile", "strong", "hard"], ["wildlife", "cars", "toys"], ["passionate", "angry", "sad"], ["home", "office", "car"]
-                ][i % 40],
-                answer: [
-                    "protect", "cutting", "warmer", "bad", "waste", "plant", "pollution", "warming", "don't throw", "cleaned", "illness", "clean", "Ecology", "pollution", "endangered", "don't throw", "planted", "beneficial", "broom", "waste", "protection", "climate", "regularly", "safe", "are", "saw", "beautiful", "green", "clean", "habitat", "rains", "planet", "Prevention", "reusable", "ice", "bin", "fragile", "wildlife", "passionate", "home"
-                ][i % 40],
-                hint: "Focus: Conditional Type 1, environment vocabulary, and hygiene."
-            }))
-        },
-        { 
-            title: "Module 4: School Life & Citizenship", 
-            questions: Array.from({length: 40}, (_, i) => ({
-                q: [
-                    "The student __ won the prize is happy.", "This is the school __ I study.", "We must __ the school rules.", "A good citizen __ taxes.", "Respect the __.",
-                    "The prefect __ badge is silver.", "I __ (to be) late yesterday.", "She __ (to have) a lot of friends.", "We __ (to do) a project.", "The teacher __ is kind.",
-                    "___ your homework on time.", "Don't __ in class.", "The school __ is green.", "We sing the __ anthem.", "The __ is in charge.",
-                    "The boy __ bag is red.", "I love the __ of my school.", "Be __ to your peers.", "Bullying is __.", "Follow the __.",
-                    "A citizen has __ and duties.", "The country needs __.", "Vote for the __.", "___ is a duty.", "I am a __ of Cameroon.",
-                    "The school __ is large.", "We have __ subjects.", "Study __ for exams.", "Success requires __.", "Don't __ during tests.",
-                    "The girl __ sits there is smart.", "This is the pen __ I lost.", "I __ (to see) the principal.", "He __ (to go) home.", "They __ (to play) football.",
-                    "Respect __.", "Be __.", "School is __.", "Knowledge is __.", "I __ my school."
-                ][i % 40],
-                options: [
-                    ["who", "which", "where"], ["where", "who", "which"], ["obey", "break", "ignore"], ["pays", "steals", "hides"], ["flag", "ball", "pen"],
-                    ["whose", "who", "which"], ["was", "were", "am"], ["has", "had", "have"], ["did", "do", "done"], ["who", "which", "whose"],
-                    ["Finish", "Start", "Leave"], ["talk", "sleep", "eat"], ["uniform", "car", "hat"], ["national", "local", "personal"], ["principal", "student", "cook"],
-                    ["whose", "who", "which"], ["spirit", "ghost", "noise"], ["kind", "mean", "rude"], ["wrong", "right", "good"], ["rules", "games", "songs"],
-                    ["rights", "fights", "money"], ["peace", "war", "noise"], ["prefect", "thief", "lazy"], ["Voting", "Sleeping", "Eating"], ["citizen", "stranger", "guest"],
-                    ["yard", "room", "box"], ["many", "few", "no"], ["hard", "lazy", "fast"], ["effort", "luck", "money"], ["cheat", "help", "work"],
-                    ["who", "which", "whose"], ["which", "who", "where"], ["saw", "see", "seen"], ["went", "go", "gone"], ["played", "play", "playing"],
-                    ["authority", "friends", "toys"], ["punctual", "late", "slow"], ["important", "bad", "easy"], ["power", "heavy", "gold"], ["love", "hate", "like"]
-                ][i % 40],
-                answer: [
-                    "who", "where", "obey", "pays", "flag", "whose", "was", "has", "did", "who", "Finish", "talk", "uniform", "national", "principal", "whose", "spirit", "kind", "wrong", "rules", "rights", "peace", "prefect", "Voting", "citizen", "yard", "many", "hard", "effort", "cheat", "who", "which", "saw", "went", "played", "authority", "punctual", "important", "power", "love"
-                ][i % 40],
-                hint: "Focus: Relative pronouns (who, which, whose, where) and school-based vocabulary."
-            }))
-        },
-        { 
-            title: "Module 5: Modern Technology Utilities", 
-            questions: Array.from({length: 40}, (_, i) => ({
-                q: [
-                    "I want to __ to a data bundle.", "Please __ on the router.", "My phone is __ out of battery.", "I have a __ with the network.", "Can you help me __ up this app?",
-                    "I am __ (good) at gaming than him.", "This is the __ (fast) internet.", "If I __ a credit card, I'd pay.", "I am __ about the slow speed.", "The service __ is poor.",
-                    "___ up your password.", "Don't __ suspicious links.", "Android phones are __.", "I use an __ for my work.", "The __ is very clear.",
-                    "I __ (past) the software.", "She __ (past) an email.", "The __ is expensive.", "I like __ games.", "The __ is down.",
-                    "I __ (to buy) a new tablet.", "How __ is the data?", "It __ (to cost) 5000 frs.", "I need a __.", "My phone __ (to break).",
-                    "The __ is large.", "I __ (to search) online.", "___ is a gadget.", "I love __.", "Be __ online.",
-                    "If the signal __ better, I'd call.", "I wish I __ a laptop.", "The screen __ broken.", "I __ (not like) lags.", "The battery __ fast.",
-                    "___ your phone.", "___ the volume.", "The __ is loud.", "Technology is __.", "I __ ICT."
-                ][i % 40],
-                options: [
-                    ["subscribe", "buy", "sell"], ["turn", "get", "put"], ["running", "walking", "going"], ["complaint", "joy", "peace"], ["set", "get", "put"],
-                    ["better", "good", "best"], ["fastest", "faster", "fast"], ["had", "have", "has"], ["unhappy", "happy", "excited"], ["quality", "color", "size"],
-                    ["Back", "Set", "Go"], ["click", "see", "touch"], ["gadgets", "toys", "books"], ["iPad", "pen", "ruler"], ["display", "noise", "weight"],
-                    ["updated", "update", "updating"], ["sent", "send", "sending"], ["subscription", "gift", "card"], ["video", "paper", "board"], ["network", "road", "water"],
-                    ["bought", "buy", "buys"], ["expensive", "long", "heavy"], ["cost", "costs", "costing"], ["charger", "book", "bag"], ["broke", "break", "breaks"],
-                    ["memory", "room", "yard"], ["searched", "search", "searching"], ["Tablet", "Pen", "Paper"], ["innovation", "old", "bad"], ["careful", "lazy", "fast"],
-                    ["were", "is", "was"], ["had", "have", "has"], ["is", "are", "am"], ["don't", "doesn't", "didn't"], ["drains", "fills", "stops"],
-                    ["Charge", "Wash", "Eat"], ["Increase", "Turn", "Stop"], ["speaker", "screen", "key"], ["useful", "bad", "hard"], ["study", "hate", "run"]
-                ][i % 40],
-                answer: [
-                    "subscribe", "turn", "running", "complaint", "set", "better", "fastest", "had", "unhappy", "quality", "Back", "click", "gadgets", "iPad", "display", "updated", "sent", "subscription", "video", "network", "bought", "expensive", "cost", "charger", "broke", "memory", "searched", "Tablet", "innovation", "careful", "were", "had", "is", "don't", "drains", "Charge", "Increase", "speaker", "useful", "study"
-                ][i % 40],
-                hint: "Focus: Phrasal verbs (turn on, set up), conditionals, and tech vocabulary."
-            }))
-        }
+    let studentName = "";
+    let unlocked = 0;
+    let currentMod = 0;
+    let currentQIdx = 0;
+    let studentAnswers = {};
+    let activeQuestions = [];
+
+    const modules = [
+        { title: "National Integration & Diversity", prompt: "Write a paragraph explaining why respecting different tribes and cultures is essential for peace in Cameroon." },
+        { title: "Consumer Rights & Responsibilities", prompt: "Explain your rights as a consumer when you buy a faulty electronic product. What steps do you take?" },
+        { title: "Environment & Hygiene", prompt: "Describe the impact of plastic waste on our environment and suggest three ways to keep the campus clean." },
+        { title: "School Life & Citizenship", prompt: "Discuss the role of a class prefect in maintaining discipline and promoting citizenship." },
+        { title: "Utilities of Modern Technology", prompt: "Discuss the advantages and disadvantages of using smartphones for school research." }
     ];
 
-    let unlocked = 0;
-    let currentMod = null;
-    let currentQ = 0;
-    let score = 0;
-    let currentShuffled = [];
+    // Core Question Database - No Repetition across 40 slots
+    const questionData = {
+        grammar: [
+            ["He said he would come, but he didn't __.", "...", "did", "to", "come"],
+            ["If I __ a student leader, I would improve the library.", "were", "am", "was", "be"],
+            ["The homework __ by the student yesterday.", "was done", "did", "is done", "does"],
+            ["This is the man __ car was stolen.", "whose", "who", "which", "whom"],
+            ["Please __ the computer when you are finished.", "shut down", "shut up", "shut in", "shut out"],
+            ["I have been studying English __ five years.", "for", "since", "while", "during"],
+            ["Neither the boy __ his friend was present.", "nor", "or", "and", "but"],
+            ["By the time he arrived, the class __.", "had started", "starts", "starting", "start"],
+            ["The tree __ by the wind last night.", "was blown down", "blow down", "is blowing", "blows"],
+            ["You __ wash your hands before eating.", "must", "might", "could", "may"],
+            ["The student __ won the prize is my cousin.", "who", "which", "whose", "whom"],
+            ["She likes music; he __ too.", "does", "liking", "is", "do"],
+            ["I need to ____ a new internet bundle.", "subscribe to", "log into", "shut down", "pick up"],
+            ["The computer ____ by the technician now.", "is being fixed", "fixes", "was fixed", "is fixing"],
+            ["Can you ____ the volume? It's too loud.", "turn down", "turn up", "turn on", "turn off"],
+            ["____ you ever used an iPhone?", "Have", "Has", "Did", "Do"],
+            ["This is the file ____ I downloaded.", "that", "who", "whom", "whose"],
+            ["She doesn't like ICT, and ____ do I.", "neither", "either", "so", "too"],
+            ["I wish I ____ a faster internet connection.", "had", "have", "am having", "will have"],
+            ["Don't forget to ____ before you leave.", "log out", "log in", "sign up", "scroll up"]
+        ],
+        vocabulary: [
+            ["Cameroon has over 200 different __ groups.", "ethnic", "plastic", "digital", "modern"],
+            ["Always check the __ date on milk before drinking it.", "expiry", "birthday", "arrival", "meeting"],
+            ["Littering causes __ in our streets.", "pollution", "wealth", "health", "growth"],
+            ["A good citizen obeys the __ of the land.", "laws", "games", "songs", "weather"],
+            ["To surf the web, you need a stable __ connection.", "internet", "battery", "plastic", "paper"],
+            ["A person from your own country is a __.", "compatriot", "foreigner", "stranger", "tourist"],
+            ["A __ is a person who buys goods and services.", "consumer", "vendor", "shopkeeper", "tutor"],
+            ["When water is not safe to drink, it is __.", "contaminated", "purified", "bottled", "chilled"],
+            ["To 'log in' to a computer, you need a __.", "password", "keyboard", "monitor", "mouse"],
+            ["A ____ is used to move the cursor.", "mouse", "monitor", "printer", "scanner"],
+            ["The brain of the computer is the ____.", "CPU", "RAM", "USB", "SSD"],
+            ["A portable computer is called a ____.", "laptop", "desktop", "server", "mainframe"],
+            ["____ is a popular mobile operating system.", "Android", "Windows", "Office", "Chrome"],
+            ["To save files externally, use a ____.", "USB drive", "monitor", "speaker", "webcam"],
+            ["The physical parts of a computer are ____.", "hardware", "software", "data", "apps"],
+            ["____ allows computers to connect wirelessly.", "Wi-Fi", "Bluetooth", "Ethernet", "Infrared"],
+            ["An ____ is a program for mobile phones.", "app", "operating system", "hardware", "driver"],
+            ["The screen of the computer is the ____.", "monitor", "keyboard", "tower", "mousepad"],
+            ["An ____ is a message sent digitally.", "email", "letter", "telegram", "fax"],
+            ["To type, you use a ____.", "keyboard", "mouse", "mic", "printer"]
+        ]
+    };
 
-    if(localStorage.getItem('easter3emeProg')) unlocked = parseInt(localStorage.getItem('easter3emeProg'));
-
-    function resetProgress() {
-        if(confirm("Reset all Troisième progress?")) {
-            localStorage.removeItem('easter3emeProg');
-            unlocked = 0;
-            showMenu();
-        }
+    function generateModuleQuestions(modIdx) {
+        let q = [];
+        // Map 20 Grammar items
+        questionData.grammar.forEach((item, i) => {
+            q.push({
+                id: `g${i}`,
+                type: "GRAMMAR",
+                text: item[0],
+                correct: item[1],
+                options: item.slice(1).sort(() => Math.random() - 0.5)
+            });
+        });
+        // Map 20 Vocab items
+        questionData.vocabulary.forEach((item, i) => {
+            q.push({
+                id: `v${i}`,
+                type: "VOCABULARY",
+                text: item[0],
+                correct: item[1],
+                options: item.slice(1).sort(() => Math.random() - 0.5)
+            });
+        });
+        return q;
     }
 
-    function showMenu() {
-        document.getElementById('menu').style.display = 'block';
-        document.getElementById('quiz-area').style.display = 'none';
-        document.getElementById('result-area').style.display = 'none';
+    function login() {
+        studentName = document.getElementById('name-input').value;
+        if(!studentName) return alert("Please enter your name.");
+        document.getElementById('screen-login').style.display = 'none';
+        document.getElementById('header-area').style.display = 'block';
+        document.getElementById('student-identity').innerText = studentName;
+        showDashboard();
+    }
+
+    function showDashboard() {
+        hideScreens();
+        document.getElementById('screen-dashboard').style.display = 'block';
         const list = document.getElementById('module-list');
-        list.innerHTML = '';
-        allModules.forEach((m, i) => {
-            const b = document.createElement('button');
-            b.className = `module-btn ${i < unlocked ? 'passed' : ''}`;
-            b.disabled = i > unlocked;
-            b.innerHTML = `<span><strong>Module ${i+1}:</strong> ${m.title}</span> <span>${i < unlocked ? '✅' : (i === unlocked ? '▶️' : '🔒')}</span>`;
-            b.onclick = () => start(i);
-            list.appendChild(b);
+        list.innerHTML = "";
+        modules.forEach((m, i) => {
+            const card = document.createElement('div');
+            const state = i < unlocked ? "passed" : (i === unlocked ? "unlocked" : "locked");
+            card.className = `module-card ${state}`;
+            card.innerHTML = `<div><strong>Module ${i+1}</strong><br>${m.title}</div> <div>${i < unlocked ? '✅ Complete' : '40 Items'}</div>`;
+            if(state !== "locked") card.onclick = () => {
+                currentMod = i;
+                activeQuestions = generateModuleQuestions(i);
+                currentQIdx = 0;
+                studentAnswers = {};
+                showQuiz();
+            };
+            list.appendChild(card);
         });
     }
 
-    function start(i) {
-        currentMod = i; currentQ = 0; score = 0;
-        currentShuffled = [...allModules[i].questions].sort(() => 0.5 - Math.random());
-        document.getElementById('menu').style.display = 'none';
-        document.getElementById('quiz-area').style.display = 'block';
-        document.getElementById('module-title').innerText = allModules[i].title;
-        loadQ();
+    function showQuiz() {
+        hideScreens();
+        document.getElementById('screen-quiz').style.display = 'block';
+        document.getElementById('mod-title').innerText = modules[currentMod].title;
+        renderQuestion();
     }
 
-    function loadQ() {
-        const q = currentShuffled[currentQ];
-        const c = document.getElementById('question-container');
-        document.getElementById('hint-display').innerText = q.hint;
-        document.getElementById('hint-display').style.display = 'none';
-        c.innerHTML = `<p>Question ${currentQ+1}/40</p><h3>${q.q}</h3><div class="options">${q.options.sort(() => 0.5 - Math.random()).map(o => `<button onclick="check('${o.replace(/'/g, "\\'")}')">${o}</button>`).join('')}</div>`;
+    function renderQuestion() {
+        const q = activeQuestions[currentQIdx];
+        document.getElementById('section-tag').innerText = q.type;
+        document.getElementById('q-counter').innerText = `Item ${currentQIdx + 1} of 40`;
+        document.getElementById('question-text').innerText = q.text;
+        
+        const container = document.getElementById('answer-container');
+        container.innerHTML = "";
+        q.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = `ans-btn ${studentAnswers[q.id] === opt ? 'ans-selected' : ''}`;
+            btn.innerText = opt;
+            btn.onclick = () => { 
+                studentAnswers[q.id] = opt; 
+                renderQuestion(); 
+            };
+            container.appendChild(btn);
+        });
+
+        document.getElementById('back-btn').disabled = currentQIdx === 0;
+        document.getElementById('next-btn').innerText = currentQIdx === 39 ? "Submit Evaluation" : "Next";
     }
 
-    function check(o) {
-        if(o === currentShuffled[currentQ].answer) score++;
-        currentQ++;
-        if(currentQ < 40) loadQ(); else finish();
+    function nav(dir) {
+        if(dir === 1 && currentQIdx === 39) evaluate();
+        else { currentQIdx += dir; renderQuestion(); }
     }
 
-    function toggleHint() { 
-        const h = document.getElementById('hint-display'); 
-        h.style.display = h.style.display === 'block' ? 'none' : 'block'; 
-    }
-
-    function finish() {
-        document.getElementById('quiz-area').style.display = 'none';
-        document.getElementById('result-area').style.display = 'block';
-        const pass = score >= 32; // Pass mark: 80% (32 out of 40)
-        document.getElementById('result-status').innerText = pass ? "Great Job! 🎓" : "Keep Practicing!";
-        document.getElementById('grade-container').innerText = `${score}/40`;
-        document.getElementById('score-text').innerText = pass ? "Module complete! You are ready for the next one." : "You need at least 32/40 to unlock the next module.";
-        const b = document.getElementById('action-btn');
-        if(pass) {
-            b.innerText = "NEXT MODULE"; b.style.background = "#22c55e";
-            b.onclick = () => { if(currentMod === unlocked) unlocked++; localStorage.setItem('easter3emeProg', unlocked); showMenu(); };
+    function evaluate() {
+        const failed = activeQuestions.filter(q => studentAnswers[q.id] !== q.correct);
+        hideScreens();
+        document.getElementById('screen-result').style.display = 'block';
+        
+        if(failed.length === 0) {
+            document.getElementById('score-text').innerText = "100%";
+            document.getElementById('result-msg').innerText = "Well done! You have mastered the objective items.";
+            const btn = document.getElementById('result-action');
+            btn.innerText = "Begin Writing Task";
+            btn.onclick = () => {
+                hideScreens();
+                document.getElementById('screen-writing').style.display = 'block';
+                document.getElementById('writing-prompt').innerText = modules[currentMod].prompt;
+            };
         } else {
-            b.innerText = "RETRY MODULE"; b.style.background = "#ef4444";
-            b.onclick = () => start(currentMod);
+            document.getElementById('score-text').innerText = `${40 - failed.length}/40`;
+            document.getElementById('result-msg').innerText = "You must correct your errors to reach 100%.";
+            activeQuestions = failed;
+            currentQIdx = 0;
+            const btn = document.getElementById('result-action');
+            btn.innerText = "Review Mistakes";
+            btn.onclick = showQuiz;
         }
     }
-    showMenu();
+
+    function finishModule() {
+        if(!document.getElementById('writing-input').value) return alert("Please complete your paragraph.");
+        alert("Evaluation successfully completed.");
+        document.getElementById('writing-input').value = "";
+        if(currentMod === unlocked) unlocked++;
+        showDashboard();
+    }
+
+    function hideScreens() {
+        ['screen-login', 'screen-dashboard', 'screen-quiz', 'screen-writing', 'screen-result'].forEach(s => {
+            document.getElementById(s).style.display = 'none';
+        });
+    }
 </script>
 </body>
 </html>
